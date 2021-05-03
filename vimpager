@@ -530,7 +530,7 @@ find_vim_executable() {
     if [ -n "$EDITOR" -a -z "$VIMPAGER_VIM" ]; then
         case "${EDITOR##*/}" in
             *vim*)
-                export VIMPAGER_VIM=$EDITOR
+                export VIMPAGER_VIM="$EDITOR"
                 ;;
         esac
     fi
@@ -848,7 +848,7 @@ page_files() {
 
     init_opts="'columns': $cols, 'tmp_dir': '$tmp', 'line_numbers': ${line_numbers:-0}, 'tail': ${tail:-0}, 'is_doc': ${is_doc:-0}, 'runtime': '$runtime', 'rc': '$vimrc'"
 
-    "$vim_cmd" -N -i NONE \
+    $vim_cmd -N -i NONE \
         $vim_options \
         --cmd "set rtp^=$runtime" \
         --cmd "call vimpager#Init({ $init_opts })" \
